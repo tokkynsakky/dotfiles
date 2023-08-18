@@ -1,0 +1,181 @@
+" ====================================
+call plug#begin()
+    Plug 'Shougo/ddc.vim'
+    Plug 'vim-denops/denops.vim'
+    Plug 'Shougo/pum.vim'
+    Plug 'Shougo/ddc-around'
+    Plug 'Shougo/ddc-matcher_head'
+    Plug 'Shougo/ddc-ui-native'
+    Plug 'Shougo/ddc-sorter_rank'
+    Plug 'mattn/vim-lsp-settings'
+    Plug 'prabirshrestha/vim-lsp'
+    Plug 'Shougo/ddc-source-around'
+    Plug 'Shougo/ddc-converter_remove_overlap'
+    Plug 'LumaKernel/ddc-file'
+    Plug 'shun/ddc-vim-lsp'
+
+    Plug 'prabirshrestha/async.vim'
+    "Plug 'prabirshrestha/vim-lsp'
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    
+    call plug#end()
+
+call ddc#custom#patch_global('completionMenu', 'pum.vim')
+
+" 使いたいsourceを指定する
+call ddc#custom#patch_global('sources', [
+    \    'vim-lsp',
+    \    'around',
+    \    'file'
+    \    ])
+
+
+call ddc#custom#patch_global('sourceOptions', {
+    \ '_': {
+    \   'matchers': ['matcher_head'],
+    \   'sorters': ['sorter_rank'],
+    \   'converters': ['converter_remove_overlap'],
+    \ },
+    \ 'around': {'mark': 'Around'},
+    \ 'vim-lsp': {
+    \   'mark': 'LSP', 
+    \   'matchers': ['matcher_head'],
+    \   'forceCompletionPattern': '\.|:|->|"\w+/*'
+    \ },
+    \ 'file': {
+    \   'mark': 'file',
+    \   'isVolatile': v:true, 
+    \   'forceCompletionPattern': '\S/\S*'
+    \ }})
+
+call ddc#custom#patch_global('sourceParams', #{
+      \   around: #{ maxSize: 500 },
+      \   vim-lsp: #{maxSize: 500},
+      \   file: #{maxSize: 500},
+      \ })
+
+call ddc#custom#patch_global('ui', 'native')
+
+call ddc#custom#patch_filetype(['css'], {
+   \ 'sourceParams': {
+   \   'vim-lsp': {
+   \     'ignoreCompleteProvider': v:true,
+   \   },
+   \ },
+   \ })
+
+" ddc.vimの機能を有効にする
+call ddc#enable()
+
+
+" ====================================
+
+
+let g:markdown_fenced_languages = ['ts=typescript']
+let g:lsp_settings_filetype_typescript = ['typescript-language-server', 'eslint-language-server']
+
+filetype off
+set nocompatible
+
+
+" escape --> jk
+inoremap jk <ESC>
+
+" setting
+"文字コードをUFT-8に設定
+set fenc=utf-8
+
+" バックアップファイルを作らない
+set nobackup
+
+" スワップファイルを作らない
+set noswapfile
+
+" 編集中のファイルが変更されたら自動で読み直す
+set autoread
+
+" バッファが編集中でもその他のファイルを開けるように
+set hidden
+
+" 入力中のコマンドをステータスに表示する
+set showcmd
+
+
+" 見た目系
+" 行番号を表示
+set number
+
+" 現在の行を強調表示
+"set cursorline
+
+" 現在の行を強調表示（縦）
+"set cursorcolumn
+
+" 行末の1文字先までカーソルを移動できるように
+set virtualedit=onemore
+
+" インデントはスマートインデント
+set smartindent
+
+" ビープ音を可視化
+" set visualbell
+set visualbell t_vb=
+
+" 括弧入力時の対応する括弧を表示
+set showmatch
+
+" ステータスラインを常に表示
+"set laststatus=2
+
+" コマンドラインの補完
+set wildmode=list:longest
+
+" 折り返し時に表示行単位での移動できるようにする
+nnoremap j gj
+nnoremap k gk
+
+" シンタックスハイライトの有効化
+" syntax enable
+syntax enable
+set background=dark
+colorscheme hybrid
+" colorscheme molokai
+" set t_Co=256
+
+
+" Tab系
+" 不可視文字を可視化(タブが「▸-」と表示される)
+set list listchars=tab:\▸\-
+
+" Tab文字を半角スペースにする
+set expandtab
+
+" 行頭以外のTab文字の表示幅（スペースいくつ分）
+set tabstop=2
+
+" 行頭でのTab文字の表示幅
+set shiftwidth=2
+
+
+" 検索系
+" 検索文字列が小文字の場合は大文字小文字を区別なく検索する
+set ignorecase
+
+" 検索文字列に大文字が含まれている場合は区別して検索する
+set smartcase
+
+" 検索文字列入力時に順次対象文字列にヒットさせる
+set incsearch
+
+" 検索時に最後まで行ったら最初に戻る
+set wrapscan
+
+" 検索語をハイライト表示
+set hlsearch
+
+" ESC連打でハイライト解除
+nmap <Esc><Esc> :nohlsearch<CR><Esc>
+
+
+
