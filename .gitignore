@@ -10,8 +10,8 @@
 
 !/.zshrc
 !/.vimrc
-!/.vim/dein.toml
-# !/.vim/colors/*
+!/dein.toml
+!/colors
 !/.tmux.conf
 !/README.md
 !/.gitignore
