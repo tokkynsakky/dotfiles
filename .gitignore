@@ -15,10 +15,7 @@
 !/.tmux.conf
 !/README.md
 !/.gitignore
-!/.vimrc.pre-dein-vim
-!/.vimrc_first
-!/.vimrc_only_vim_plug
-
+!/astroNvimMyConfig
 
 # !/.zshrc
 # !/.zshenv

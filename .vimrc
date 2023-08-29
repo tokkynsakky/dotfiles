@@ -283,10 +283,37 @@ endif
 "===== ===== ===== ===== ===== ===== ===== =====
 
 
+"===== ===== ===== neosnipet ===== ===== =====
+call dein#add('Shougo/deoplete.nvim')
+if !has('nvim')
+  call dein#add('roxma/nvim-yarp')
+  call dein#add('roxma/vim-hug-neovim-rpc')
+endif
+let g:deoplete#enable_at_startup = 1
 
+call dein#add('Shougo/neosnippet.vim')
+call dein#add('Shougo/neosnippet-snippets')
 
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
 
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+"===== ===== ===== ===== ===== ===== ===== =====
 
 
 
@@ -329,44 +356,44 @@ augroup end
 
 " go {{{2
 " ==============================================================================
-if executable('gopls')
-    augroup LspGo
-        au!
-        autocmd User lsp_setup call lsp#register_server({
-                    \ 'name': 'go-lang',
-                    \ 'cmd': {server_info->['gopls']},
-                    \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'go.mod'))},
-                    \ 'allowlist': ['go'],
-                    \ 'workspace_config': {'gopls': {
-                    \     'staticcheck': v:false,
-                    \     'completeUnimported': v:true,
-                    \     'caseSensitiveCompletion': v:true,
-                    \     'usePlaceholders': v:true,
-                    \     'completionDocumentation': v:true,
-                    \     'watchFileChanges': v:true,
-                    \     'hoverKind': 'SynopsisDocumentation',
-                    \     'deepCompletion': v:true,
-                    \ }},
-                    \ })
-        autocmd FileType go setlocal omnifunc=lsp#complete
-        "autocmd FileType go nmap <buffer> gd <plug>(lsp-definition)
-        "autocmd FileType go nmap <buffer> ,n <plug>(lsp-next-error)
-        "autocmd FileType go nmap <buffer> ,p <plug>(lsp-previous-error)
-    augroup END
-elseif executable('bingo')
-    augroup LspGo
-        au!
-        autocmd User lsp_setup call lsp#register_server({
-                    \ 'name': 'go-lang',
-                    \ 'cmd': {server_info->['bingo', '-mode', 'stdio']},
-                    \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
-                    \ 'allowlist': ['go'],
-                    \ })
-        autocmd FileType go setlocal omnifunc=lsp#complete
-    augroup END
-else
-    :echomsg "vim-lsp for go unavailable"
-endif
+" if executable('gopls')
+"     augroup LspGo
+"         au!
+"         autocmd User lsp_setup call lsp#register_server({
+"                     \ 'name': 'go-lang',
+"                     \ 'cmd': {server_info->['gopls']},
+"                     \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'go.mod'))},
+"                     \ 'allowlist': ['go'],
+"                     \ 'workspace_config': {'gopls': {
+"                     \     'staticcheck': v:false,
+"                     \     'completeUnimported': v:true,
+"                     \     'caseSensitiveCompletion': v:true,
+"                     \     'usePlaceholders': v:true,
+"                     \     'completionDocumentation': v:true,
+"                     \     'watchFileChanges': v:true,
+"                     \     'hoverKind': 'SynopsisDocumentation',
+"                     \     'deepCompletion': v:true,
+"                     \ }},
+"                     \ })
+"         autocmd FileType go setlocal omnifunc=lsp#complete
+"         "autocmd FileType go nmap <buffer> gd <plug>(lsp-definition)
+"         "autocmd FileType go nmap <buffer> ,n <plug>(lsp-next-error)
+"         "autocmd FileType go nmap <buffer> ,p <plug>(lsp-previous-error)
+"     augroup END
+" elseif executable('bingo')
+"     augroup LspGo
+"         au!
+"         autocmd User lsp_setup call lsp#register_server({
+"                     \ 'name': 'go-lang',
+"                     \ 'cmd': {server_info->['bingo', '-mode', 'stdio']},
+"                     \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
+"                     \ 'allowlist': ['go'],
+"                     \ })
+"         autocmd FileType go setlocal omnifunc=lsp#complete
+"     augroup END
+" else
+"     :echomsg "vim-lsp for go unavailable"
+" endif
 
 " javascript {{{2
 if executable('typescript-language-server')

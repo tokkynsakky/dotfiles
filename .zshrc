@@ -13,8 +13,8 @@ eval "$(pyenv init -)"
 export PATH=$HOME/commands:$PATH
 # export PATH="/opt/homebrew/bin:$PATH"
 # ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
-
-
+export GNUTERM="qt font \"Arial,12\""
+# export GNUTERM="qt font \"Helvetica\""
 
 # ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 #gcc
@@ -190,7 +190,8 @@ alias pu=pushd
 alias po=popd
 
 function mytitle {
-    echo -n ']2;'${host}': '${PWD}'' # original
+    # echo -n ']2;'${host}': '${PWD}'' # original
+    echo -n ']2;tokky : '${PWD}'' # original
 }
 
 if [[ $TERM = [xk]term* ]]; then
