@@ -6,4 +6,6 @@ return {
 
   -- { import = "astrocommunity.colorscheme.catppuccin" },
   -- { import = "astrocommunity.completion.copilot-lua-cmp" },
+  -- { import = "astrocommunity.colorscheme.iceberg-vim"},
+  { import = "astrocommunity.colorscheme.nord-nvim"},
 }

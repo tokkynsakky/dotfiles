@@ -18,7 +18,8 @@ export GNUTERM="qt font \"Arial,12\""
 
 # ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 #gcc
-export CXXFLAGS="-std=c++17"
+export CXXFLAGS="-std=c++20"
+# export CXXFLAGS="-std=c++17"
 export LDFLAGS="-L/opt/homebrew/opt/libomp/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/libomp/include"
 export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
@@ -191,7 +192,7 @@ alias po=popd
 
 function mytitle {
     # echo -n ']2;'${host}': '${PWD}'' # original
-    echo -n ']2;tokky : '${PWD}'' # original
+    # echo -n ']2;tokky : '${PWD}''
 }
 
 if [[ $TERM = [xk]term* ]]; then
@@ -237,7 +238,8 @@ colorlist() {
 
 # export PS1="[%n@%m] "
 # PROMPT='[%F{023}%n@%m%f] %# '
-PROMPT='%F{023}%n%f %# '
+# PROMPT='%F{023}%n%f %# '
+PROMPT='%F{023}(- ω -) aisu_desu%f %# '
 RPROMPT='[%~]'
 setopt transient_rprompt 
 
