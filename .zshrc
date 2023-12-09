@@ -1,89 +1,49 @@
 # ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 #PATH
-# export PATH=$HOME/commands:$PATH
 export PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-#export PATH="/usr/local/opt/node@16/bin:$PATH"
 export PATH="/opt/homebrew/bin/node@16:$PATH"
-# export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export PYENV_ROOT=" $HOME/.pyenv"
 export PATH=" $PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
-# export SDKROOT="$(xcrun --sdk macosx --show-sdk-path)"
-
 export PATH=$HOME/commands:$PATH
-# export PATH="/opt/homebrew/bin:$PATH"
+export PATH=$PATH:$GOPATH/bin
+export GO111MODULE=on
+export GOROOT=/usr/local/opt/go/libexec
+export GOPATH=$HOME/src/go
 # ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 export GNUTERM="qt font \"Arial,12\""
 # export GNUTERM="qt font \"Helvetica\""
-
 # ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 #gcc
 export CXXFLAGS="-std=c++20"
-# export CXXFLAGS="-std=c++17"
 export LDFLAGS="-L/opt/homebrew/opt/libomp/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/libomp/include"
 export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/Users/$USER/AtCoder/include/
 # ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
-
-
-
-# ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 #multipass
 alias mp='multipass'
 # ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
-
-
-
-# ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 # zsh補完
 # https://github.com/zsh-users/zsh-autosuggestions
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-# ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
-
-
-
-# ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
-#zsh 補完
+# zsh補完設定
 #ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold,underline"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=#005f5f,bold,underline"
 # ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_STRATEGY=(completion)
 bindkey '^p' autosuggest-accept
-
 plugins=( 
     # other plugins...
     zsh-autosuggestions
 )
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
-
-
-
-# ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
-# 追記箇所
-# export PATH="/anaconda3/bin:$PATH"
-# ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
-
-
-# export PS1="%n@%m %1~ %# "
-
-#export GOPATH=$HOME/os/go
-#export GOPATH=$HOME/src/go
-export PATH=$PATH:$GOPATH/bin
-
-export GO111MODULE=on
-export GOROOT=/usr/local/opt/go/libexec
-export GOPATH=$HOME/src/go
-
-
-### NEWS Configuration
 
 
 #追記部分
 autoload -U compinit
 compinit
-
 setopt HIST_VERIFY
 setopt NO_BEEP
 setopt printeightbit
@@ -167,25 +127,16 @@ fi
 alias   h="fc -l -d -20"
 alias   history="fc -l -d -$HISTSIZE" 
 alias   j=jobs
-
 alias   javac="javac -J-Dfile.encoding=UTF8"
-
-
 alias sslogin='eval `ssh-agent`; ssh-add ~/.ssh/id_dsa'
 alias sslogon='ssh-add ~/.ssh/id_dsa ~/.ssh/id_rsa ~/.ssh/identity'
-
 alias nslookup="nslookup -sil"
 # alias irulan="ssh $irulan"
 alias rless="unset LESSOPEN; less"
-
 # alias trn="export LANG=C; trn"
-
 # prompt='%S+%s%m%S+%s%n ' 
-
 mailpath=/var/mail
-
 stty susp '^z'
-
 setopt PUSHD_IGNORE_DUPS
 alias pu=pushd
 alias po=popd
@@ -222,24 +173,36 @@ alias   re='rm #* *~ #.* .*~ *.dvi *.log *.blg *.bak *.swp;'
 autoload -U compinit 
 compinit
 
-
 colorlist() {
-	for color in {000..015}; do
-		print -nP "%F{$color}$color %f"
-	done
-	printf "\n"
-	for color in {016..255}; do
-		print -nP "%F{$color}$color %f"
-		if [ $(($((color-16))%6)) -eq 5 ]; then
-			printf "\n"
-		fi
-	done
+ for color in {000..015}; do
+  print -nP "%F{$color}$color %f"
+ done
+ printf "\n"
+ for color in {016..255}; do
+  print -nP "%F{$color}$color %f"
+  if [ $(($((color-16))%6)) -eq 5 ]; then
+   printf "\n"
+  fi
+ done
 }
 
-# export PS1="[%n@%m] "
-# PROMPT='[%F{023}%n@%m%f] %# '
-# PROMPT='%F{023}%n%f %# '
-PROMPT='%F{023}(- ω -) aisu_desu%f %# '
+# 変数の読み込み
+source ~/.zsh-variable.sh
+function gitmain() {
+  git config --global user.name $GIT_USER_NAME_PRIVATE
+  git config --global user.email $GIT_USER_EMAIL_PRIVATE
+  source ~/.zshrc
+}
+
+function gitsub() {
+  git config --global user.name $GIT_USER_NAME_WORK
+  git config --global user.email $GIT_USER_EMAIL_WORK
+  source ~/.zshrc
+}
+
+# PROMPT設定
+# PROMPT="%F{023}tokky[git:`git config user.name`]%f %# "
+PROMPT="%F{023}aisu[git:`git config user.name`]%f %# "
 RPROMPT='[%~]'
 setopt transient_rprompt 
 
@@ -259,7 +222,6 @@ setopt transient_rprompt
 # unset __conda_setup
 
 # <<< conda initialize <<<
-
 source /Users/$USER/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-#source /Users/$USER/any/hugo/renshuu-site/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-#source /Users/$USER/any/hugo/renshuu-site/public/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+export PATH=$PATH:~/.latexmkrc
+export PATH=$PATH:/usr/local/texlive/2022/bin/universal-darwin

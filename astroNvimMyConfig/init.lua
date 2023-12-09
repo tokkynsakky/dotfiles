@@ -1,3 +1,9 @@
+vim.g.nvim_agda_settings = {
+    agda = "/usr/local/bin/agda",            -- Location of Agda binary
+    agda_args = { "--arg1", "--arg2"  },     -- Default arguments to Agda binary
+    debug_p = true                          -- Turn debug prints on or off
+  }
+
 return {
   -- Configure AstroNvim updates
   updater = {
@@ -27,7 +33,7 @@ return {
     virtual_text = true,
     underline = true,
   },
-
+  
   lsp = {
     -- customize lsp formatting options
     formatting = {
@@ -53,7 +59,13 @@ return {
     -- enable servers that you already have installed without mason
     servers = {
       "clangd",
-      "pyright"
+      "pyright",
+      -- "lua_ls",
+      "tsserver",
+      -- "jsonlsp",
+      -- "yaml-languate-server",
+      "tailwindcss",
+      -- "volar-server",
     },
   },
 
