@@ -24,9 +24,9 @@ return {
   },
 
   -- Set colorscheme to use
-  -- colorscheme = "astrodark",
+  colorscheme = "astrodark",
   -- colorscheme = "iceberg",
-  colorscheme = "nord",
+  -- colorscheme = "nord",
 
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
@@ -64,8 +64,9 @@ return {
       "tsserver",
       -- "jsonlsp",
       -- "yaml-languate-server",
-      "tailwindcss",
+      -- "tailwindcss",
       -- "volar-server",
+      "jdtls"
     },
   },
 

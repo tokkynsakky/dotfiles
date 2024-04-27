@@ -21,6 +21,7 @@ export CPPFLAGS="-I/opt/homebrew/opt/libomp/include"
 export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/Users/$USER/AtCoder/include/
+# export LDFLAGS="-L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++"
 # ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 #multipass
 alias mp='multipass'
@@ -194,16 +195,25 @@ function gitmain() {
   source ~/.zshrc
 }
 
-function gitsub() {
+function gitwork() {
   git config --global user.name $GIT_USER_NAME_WORK
   git config --global user.email $GIT_USER_EMAIL_WORK
   source ~/.zshrc
 }
 
+function relo() {
+  source ~/.zshrc
+}
+
+function base() {
+  source ~/anaconda3/bin/activate
+}
+
 # PROMPT設定
 # PROMPT="%F{023}tokky[git:`git config user.name`]%f %# "
-PROMPT="%F{023}aisu[git:`git config user.name`]%f %# "
-RPROMPT='[%~]'
+# PROMPT="%F{023}tokky [git:`git config user.name`]%f %# "
+PROMPT="%F{023}tokky [`git config user.name`]%f %# "
+RPROMPT="[%~]"
 setopt transient_rprompt 
 
 # >>> conda initialize >>>

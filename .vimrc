@@ -230,7 +230,7 @@ let g:lsp_settings = {
 \       'pylsp': {
 \         'configurationSources': ['flake8'],
 \         'plugins': {
-\           'flake8': {'enabled':v:true},
+\           'flake8': {'enabled':v:false},
 \           'pyflakes': {'enabled':v:false},
 \           'pycodestyle': {'enabled':v:false},
 \         }
